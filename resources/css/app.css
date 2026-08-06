@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        color-scheme: light;
+    }
+
+    .dark {
+        color-scheme: dark;
+    }
+
+    body {
+        transition: background-color 0.2s ease;
+    }
+
+    .dark body {
+        background-color: #0b1426;
+    }
+}
+
+@layer utilities {
+    /* Dark mode surface & text overrides so neutral Tailwind utilities flip with the .dark class */
+    .dark .bg-white {
+        background-color: #16233c;
+    }
+
+    .dark .bg-gray-50 {
+        background-color: #101b30;
+    }
+
+    .dark .bg-gray-100 {
+        background-color: #111d34;
+    }
+
+    .dark .bg-gray-200 {
+        background-color: #1c2b47;
+    }
+
+    .dark .text-gray-300 {
+        color: #cbd5e1;
+    }
+
+    .dark .text-gray-400 {
+        color: #8ea0bd;
+    }
+
+    .dark .text-gray-500 {
+        color: #93a4c2;
+    }
+
+    .dark .text-gray-600 {
+        color: #a6b4cd;
+    }
+
+    .dark .text-gray-700 {
+        color: #cbd5e1;
+    }
+
+    .dark .text-gray-800 {
+        color: #e2e8f0;
+    }
+
+    .dark .text-gray-900 {
+        color: #eef2f7;
+    }
+
+    .dark .text-navy-600 {
+        color: #8fb3e0;
+    }
+
+    .dark .text-navy-700 {
+        color: #c3d5ec;
+    }
+
+    .dark .text-navy-800 {
+        color: #dbe6f3;
+    }
+
+    .dark .text-navy-900 {
+        color: #eef2f7;
+    }
+
+    .dark .text-slate-700 {
+        color: #cbd5e1;
+    }
+
+    .dark .text-slate-800 {
+        color: #e2e8f0;
+    }
+
+    .dark .text-slate-900 {
+        color: #eef2f7;
+    }
+
+    .dark .border-gray-100,
+    .dark .divide-gray-100 {
+        border-color: #1e2d49;
+    }
+
+    .dark .border-gray-200,
+    .dark .divide-gray-200 {
+        border-color: #25365a;
+    }
+
+    .dark .border-gray-300 {
+        border-color: #344568;
+    }
+
+    .dark .placeholder-gray-400::placeholder {
+        color: #64748b;
+    }
+
+    .dark .shadow-sm,
+    .dark .shadow {
+        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.45);
+    }
+
+    .dark .shadow-lg,
+    .dark .shadow-xl {
+        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+    }
+}
