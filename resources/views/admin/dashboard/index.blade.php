@@ -24,65 +24,71 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             {{-- KPI cards --}}
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-                <div class="bg-white shadow-sm sm:rounded-xl p-5 flex items-center gap-4">
+                <button type="button" @click="$dispatch('open-modal', 'card-checked-in')" class="group bg-white shadow-sm sm:rounded-xl p-5 flex items-center gap-4 text-left cursor-pointer hover:ring-2 hover:ring-blue-200 hover:shadow-lg transition-all duration-150">
                     <span class="flex items-center justify-center h-11 w-11 rounded-lg bg-gradient-to-br from-blue-500 to-blue-700 shrink-0">
                         <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     </span>
-                    <div>
+                    <div class="flex-1">
                         <div class="text-2xl font-bold text-navy-900">{{ $checkedInToday }}</div>
                         <div class="text-xs text-gray-500">Checked in today</div>
                     </div>
-                </div>
+                    <svg class="h-4 w-4 text-gray-300 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+                </button>
 
-                <div class="bg-white shadow-sm sm:rounded-xl p-5 flex items-center gap-4">
+                <button type="button" @click="$dispatch('open-modal', 'card-on-clock')" class="group bg-white shadow-sm sm:rounded-xl p-5 flex items-center gap-4 text-left cursor-pointer hover:ring-2 hover:ring-blue-200 hover:shadow-lg transition-all duration-150">
                     <span class="flex items-center justify-center h-11 w-11 rounded-lg bg-gradient-to-br from-navy-600 to-navy-800 shrink-0">
                         <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     </span>
-                    <div>
+                    <div class="flex-1">
                         <div class="text-2xl font-bold text-navy-900">{{ $onClockNow }}</div>
                         <div class="text-xs text-gray-500">On the clock now</div>
                     </div>
-                </div>
+                    <svg class="h-4 w-4 text-gray-300 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+                </button>
 
-                <div class="bg-white shadow-sm sm:rounded-xl p-5 flex items-center gap-4">
+                <button type="button" @click="$dispatch('open-modal', 'card-rate')" class="group bg-white shadow-sm sm:rounded-xl p-5 flex items-center gap-4 text-left cursor-pointer hover:ring-2 hover:ring-blue-200 hover:shadow-lg transition-all duration-150">
                     <span class="flex items-center justify-center h-11 w-11 rounded-lg bg-gradient-to-br from-blue-400 to-blue-600 shrink-0">
                         <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                     </span>
-                    <div>
+                    <div class="flex-1">
                         <div class="text-2xl font-bold text-navy-900">{{ $attendanceRate }}%</div>
                         <div class="text-xs text-gray-500">Attendance rate</div>
                     </div>
-                </div>
+                    <svg class="h-4 w-4 text-gray-300 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+                </button>
 
-                <div class="bg-white shadow-sm sm:rounded-xl p-5 flex items-center gap-4">
+                <button type="button" @click="$dispatch('open-modal', 'card-employees')" class="group bg-white shadow-sm sm:rounded-xl p-5 flex items-center gap-4 text-left cursor-pointer hover:ring-2 hover:ring-blue-200 hover:shadow-lg transition-all duration-150">
                     <span class="flex items-center justify-center h-11 w-11 rounded-lg bg-gradient-to-br from-navy-500 to-navy-700 shrink-0">
                         <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
                     </span>
-                    <div>
+                    <div class="flex-1">
                         <div class="text-2xl font-bold text-navy-900">{{ $activeEmployees }}</div>
                         <div class="text-xs text-gray-500">Active employees</div>
                     </div>
-                </div>
+                    <svg class="h-4 w-4 text-gray-300 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+                </button>
 
-                <div class="bg-white shadow-sm sm:rounded-xl p-5 flex items-center gap-4">
+                <button type="button" @click="$dispatch('open-modal', 'card-locations')" class="group bg-white shadow-sm sm:rounded-xl p-5 flex items-center gap-4 text-left cursor-pointer hover:ring-2 hover:ring-blue-200 hover:shadow-lg transition-all duration-150">
                     <span class="flex items-center justify-center h-11 w-11 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 shrink-0">
                         <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                     </span>
-                    <div>
+                    <div class="flex-1">
                         <div class="text-2xl font-bold text-navy-900">{{ $totalLocations }}</div>
                         <div class="text-xs text-gray-500">Locations</div>
                     </div>
-                </div>
+                    <svg class="h-4 w-4 text-gray-300 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+                </button>
 
-                <div class="bg-white shadow-sm sm:rounded-xl p-5 flex items-center gap-4">
+                <button type="button" @click="$dispatch('open-modal', 'card-logs-today')" class="group bg-white shadow-sm sm:rounded-xl p-5 flex items-center gap-4 text-left cursor-pointer hover:ring-2 hover:ring-blue-200 hover:shadow-lg transition-all duration-150">
                     <span class="flex items-center justify-center h-11 w-11 rounded-lg bg-gradient-to-br from-navy-500 to-blue-700 shrink-0">
                         <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                     </span>
-                    <div>
+                    <div class="flex-1">
                         <div class="text-2xl font-bold text-navy-900">{{ $logsToday }}</div>
                         <div class="text-xs text-gray-500">Logs today</div>
                     </div>
-                </div>
+                    <svg class="h-4 w-4 text-gray-300 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+                </button>
             </div>
 
             {{-- Charts row 1: trend bar + status doughnut --}}
@@ -176,6 +182,197 @@
             </div>
         </div>
     </div>
+
+    {{-- Card detail modals --}}
+    <x-modal name="card-checked-in" :show="false" maxWidth="2xl" focusable>
+        <div class="px-6 py-4 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
+            <h3 class="text-sm font-semibold text-slate-800">Checked in today ({{ $checkedInToday }})</h3>
+            <button @click="$dispatch('close-modal', 'card-checked-in')" class="text-gray-400 hover:text-gray-600">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+        </div>
+        <div class="p-6">
+            <ul class="divide-y divide-gray-100">
+                @forelse ($checkedInEmployees as $emp)
+                    <li class="py-3 flex items-center justify-between">
+                        <div>
+                            <div class="text-sm font-medium text-gray-800">{{ $emp['name'] }}</div>
+                            <div class="text-xs text-gray-500">{{ $emp['code'] }}</div>
+                        </div>
+                        <span class="text-xs text-gray-500">{{ $emp['time'] }}</span>
+                    </li>
+                @empty
+                    <li class="py-3 text-sm text-gray-500">Nobody has checked in yet today.</li>
+                @endforelse
+            </ul>
+        </div>
+    </x-modal>
+
+    <x-modal name="card-on-clock" :show="false" maxWidth="2xl" focusable>
+        <div class="px-6 py-4 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
+            <h3 class="text-sm font-semibold text-slate-800">On the clock now ({{ $onClockNow }})</h3>
+            <button @click="$dispatch('close-modal', 'card-on-clock')" class="text-gray-400 hover:text-gray-600">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+        </div>
+        <div class="p-6">
+            <ul class="divide-y divide-gray-100">
+                @forelse ($onClockEmployees as $emp)
+                    <li class="py-3 flex items-center justify-between">
+                        <div>
+                            <div class="text-sm font-medium text-gray-800">{{ $emp['name'] }}</div>
+                            <div class="text-xs text-gray-500">{{ $emp['code'] }}</div>
+                        </div>
+                        <span class="inline-flex items-center gap-1 text-xs text-green-700"><span class="h-1.5 w-1.5 rounded-full bg-green-600 inline-block"></span>{{ $emp['time'] }}</span>
+                    </li>
+                @empty
+                    <li class="py-3 text-sm text-gray-500">Nobody is currently on the clock.</li>
+                @endforelse
+            </ul>
+        </div>
+    </x-modal>
+
+    <x-modal name="card-rate" :show="false" maxWidth="2xl" focusable>
+        <div class="px-6 py-4 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
+            <h3 class="text-sm font-semibold text-slate-800">Attendance rate ({{ $attendanceRate }}%)</h3>
+            <button @click="$dispatch('close-modal', 'card-rate')" class="text-gray-400 hover:text-gray-600">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+        </div>
+        <div class="p-6">
+            <div class="grid grid-cols-3 gap-3 mb-4">
+                <div class="text-center bg-gray-50 rounded-lg py-3">
+                    <div class="text-2xl font-bold text-navy-900">{{ $status['on_clock'] }}</div>
+                    <div class="text-xs text-gray-500">On the clock</div>
+                </div>
+                <div class="text-center bg-gray-50 rounded-lg py-3">
+                    <div class="text-2xl font-bold text-navy-900">{{ $status['checked_out'] }}</div>
+                    <div class="text-xs text-gray-500">Checked out</div>
+                </div>
+                <div class="text-center bg-gray-50 rounded-lg py-3">
+                    <div class="text-2xl font-bold text-navy-900">{{ $status['absent'] }}</div>
+                    <div class="text-xs text-gray-500">Absent today</div>
+                </div>
+            </div>
+
+            <h4 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">On the clock</h4>
+            <ul class="divide-y divide-gray-100 mb-4">
+                @forelse ($onClockEmployees as $emp)
+                    <li class="py-2 flex items-center justify-between">
+                        <span class="text-sm text-gray-800">{{ $emp['name'] }}</span>
+                        <span class="text-xs text-gray-500">{{ $emp['time'] }}</span>
+                    </li>
+                @empty
+                    <li class="py-2 text-sm text-gray-500">None</li>
+                @endforelse
+            </ul>
+
+            <h4 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Checked out</h4>
+            <ul class="divide-y divide-gray-100 mb-4">
+                @forelse ($checkedOutEmployees as $emp)
+                    <li class="py-2 flex items-center justify-between">
+                        <span class="text-sm text-gray-800">{{ $emp['name'] }}</span>
+                        <span class="text-xs text-gray-500">{{ $emp['time'] }}</span>
+                    </li>
+                @empty
+                    <li class="py-2 text-sm text-gray-500">None</li>
+                @endforelse
+            </ul>
+
+            <h4 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Absent today</h4>
+            <ul class="divide-y divide-gray-100">
+                @forelse ($absentEmployees as $emp)
+                    <li class="py-2 flex items-center justify-between">
+                        <span class="text-sm text-gray-800">{{ $emp['name'] }}</span>
+                        <span class="text-xs text-gray-500">{{ $emp['code'] }}</span>
+                    </li>
+                @empty
+                    <li class="py-2 text-sm text-gray-500">Everyone has logged in today.</li>
+                @endforelse
+            </ul>
+        </div>
+    </x-modal>
+
+    <x-modal name="card-employees" :show="false" maxWidth="2xl" focusable>
+        <div class="px-6 py-4 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
+            <h3 class="text-sm font-semibold text-slate-800">Active employees ({{ $activeEmployees }})</h3>
+            <button @click="$dispatch('close-modal', 'card-employees')" class="text-gray-400 hover:text-gray-600">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+        </div>
+        <div class="p-6">
+            <ul class="divide-y divide-gray-100">
+                @forelse ($activeEmployeeList as $emp)
+                    <li class="py-3 flex items-center justify-between">
+                        <div>
+                            <div class="text-sm font-medium text-gray-800">{{ $emp['name'] }}</div>
+                            <div class="text-xs text-gray-500">{{ $emp['code'] }}</div>
+                        </div>
+                        <span class="text-xs text-gray-500">{{ $emp['location'] ?? 'No location' }}</span>
+                    </li>
+                @empty
+                    <li class="py-3 text-sm text-gray-500">No active employees yet.</li>
+                @endforelse
+            </ul>
+        </div>
+    </x-modal>
+
+    <x-modal name="card-locations" :show="false" maxWidth="2xl" focusable>
+        <div class="px-6 py-4 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
+            <h3 class="text-sm font-semibold text-slate-800">Locations ({{ $totalLocations }})</h3>
+            <button @click="$dispatch('close-modal', 'card-locations')" class="text-gray-400 hover:text-gray-600">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+        </div>
+        <div class="p-6">
+            <ul class="divide-y divide-gray-100">
+                @forelse ($locations as $location)
+                    <li class="py-3">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-800 font-medium">{{ $location['name'] }}</span>
+                            <span class="text-gray-500">{{ $location['present'] }} present</span>
+                        </div>
+                        <div class="mt-1.5 h-2 bg-gray-100 rounded-full overflow-hidden">
+                            <div class="h-full rounded-full bg-gradient-to-r from-blue-500 to-indigo-600" style="width: {{ round($location['present'] / $maxPresent * 100) }}%"></div>
+                        </div>
+                    </li>
+                @empty
+                    <li class="py-3 text-sm text-gray-500">No locations yet.</li>
+                @endforelse
+            </ul>
+        </div>
+    </x-modal>
+
+    <x-modal name="card-logs-today" :show="false" maxWidth="2xl" focusable>
+        <div class="px-6 py-4 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
+            <h3 class="text-sm font-semibold text-slate-800">Logs today ({{ $logsToday }})</h3>
+            <button @click="$dispatch('close-modal', 'card-logs-today')" class="text-gray-400 hover:text-gray-600">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+        </div>
+        <div class="p-6">
+            <ul class="divide-y divide-gray-100">
+                @forelse ($todayLogs as $log)
+                    <li class="py-3 flex items-center justify-between">
+                        <div>
+                            <div class="text-sm font-medium text-gray-800">{{ $log['name'] }}</div>
+                            <div class="text-xs text-gray-500">{{ $log['code'] }}</div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            @if ($log['type'] === 'time_in')
+                                <span class="text-xs text-green-700">Time in</span>
+                            @else
+                                <span class="text-xs text-red-700">Time out</span>
+                            @endif
+                            <span class="text-xs text-gray-500">{{ $log['time'] }}</span>
+                        </div>
+                    </li>
+                @empty
+                    <li class="py-3 text-sm text-gray-500">No attendance logs yet today.</li>
+                @endforelse
+            </ul>
+        </div>
+    </x-modal>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

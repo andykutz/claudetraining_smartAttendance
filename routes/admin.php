@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AttendanceController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\LocationController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
@@ -12,6 +13,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
         Route::resource('employees', EmployeeController::class)->except('show');
         Route::get('attendance', [AttendanceController::class, 'index'])->name('attendance.index');
         Route::get('attendance/export', [AttendanceController::class, 'export'])->name('attendance.export');
+        Route::get('attendance/reports', [ReportController::class, 'index'])->name('attendance.reports');
+        Route::get('attendance/reports/download', [ReportController::class, 'download'])->name('attendance.reports.download');
     });
 
     Route::middleware('role:admin')->group(function () {

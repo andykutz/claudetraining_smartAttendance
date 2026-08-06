@@ -20,8 +20,11 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('admin.attendance.index')" :active="request()->routeIs('admin.attendance.*')">
+                    <x-nav-link :href="route('admin.attendance.index')" :active="request()->routeIs('admin.attendance.index', 'admin.attendance.export')">
                         {{ __('Attendance') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('admin.attendance.reports')" :active="request()->routeIs('admin.attendance.reports*')">
+                        {{ __('Reports') }}
                     </x-nav-link>
                     <x-nav-link :href="route('admin.employees.index')" :active="request()->routeIs('admin.employees.*')">
                         {{ __('Employees') }}
@@ -108,8 +111,11 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('admin.attendance.index')" :active="request()->routeIs('admin.attendance.*')">
+            <x-responsive-nav-link :href="route('admin.attendance.index')" :active="request()->routeIs('admin.attendance.index', 'admin.attendance.export')">
                 {{ __('Attendance') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.attendance.reports')" :active="request()->routeIs('admin.attendance.reports*')">
+                {{ __('Reports') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('admin.employees.index')" :active="request()->routeIs('admin.employees.*')">
                 {{ __('Employees') }}

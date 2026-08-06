@@ -23,17 +23,19 @@ class DashboardController extends Controller
             $logsQuery->where('location_id', $locationScope);
         }
 
-        $activeEmployees = (clone $employeesQuery)->where('active', true)->get();
+        $activeEmployees = (clone $employeesQuery)->with('homeLocation')->where('active', true)->get();
         $employeeIds = $activeEmployees->pluck('id');
 
         $latestLogsToday = AttendanceLog::query()
+            ->with('employee')
             ->whereDate('scanned_at', today())
             ->whereIn('employee_id', $employeeIds);
         if ($locationScope) {
             $latestLogsToday->where('location_id', $locationScope);
         }
 
-        $latestPerEmployee = $latestLogsToday->get()
+        $todayLogs = $latestLogsToday->get();
+        $latestPerEmployee = $todayLogs
             ->groupBy('employee_id')
             ->map(fn ($group) => $group->sortByDesc('scanned_at')->first());
 
@@ -54,7 +56,7 @@ class DashboardController extends Controller
             'totalEmployees' => (clone $employeesQuery)->count(),
             'activeEmployees' => $activeCount,
             'totalLocations' => $user->isAdmin() ? Location::where('active', true)->count() : 1,
-            'logsToday' => (clone $logsQuery)->whereDate('scanned_at', today())->count(),
+            'logsToday' => $todayLogs->count(),
             'logsThisMonth' => (clone $logsQuery)->whereMonth('scanned_at', now()->month)->whereYear('scanned_at', now()->year)->count(),
             'checkedInToday' => $checkedInToday,
             'onClockNow' => $onClockNow,
@@ -71,7 +73,42 @@ class DashboardController extends Controller
                 ->latest('scanned_at')
                 ->limit(10)
                 ->get(),
+            'checkedInEmployees' => $this->employeeRows($todayLogs->where('type', 'time_in')),
+            'onClockEmployees' => $this->employeeRows($latestPerEmployee->where('type', 'time_in')),
+            'checkedOutEmployees' => $this->employeeRows($latestPerEmployee->where('type', 'time_out')),
+            'absentEmployees' => $activeEmployees
+                ->whereNotIn('id', $latestPerEmployee->keys())
+                ->map(fn (Employee $employee) => [
+                    'name' => $employee->name,
+                    'code' => $employee->employee_code,
+                    'location' => $employee->homeLocation?->name,
+                ])
+                ->values(),
+            'activeEmployeeList' => $activeEmployees->map(fn (Employee $employee) => [
+                'name' => $employee->name,
+                'code' => $employee->employee_code,
+                'location' => $employee->homeLocation?->name,
+            ]),
+            'todayLogs' => $todayLogs->map(fn (AttendanceLog $log) => [
+                'name' => $log->employee->name,
+                'code' => $log->employee->employee_code,
+                'type' => $log->type,
+                'time' => $log->scanned_at->format('g:i A'),
+            ])->values(),
         ]);
+    }
+
+    private function employeeRows($logs)
+    {
+        return $logs->groupBy('employee_id')->map(function ($group) {
+            $first = $group->sortBy('scanned_at')->first();
+
+            return [
+                'name' => $first->employee->name,
+                'code' => $first->employee->employee_code,
+                'time' => $first->scanned_at->format('g:i A'),
+            ];
+        })->values();
     }
 
     private function weeklyTrend($logsQuery): array
