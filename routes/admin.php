@@ -25,5 +25,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
 
         Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
         Route::get('settings/api-docs/pdf', [SettingsController::class, 'apiDocsPdf'])->name('settings.api-docs.pdf');
+        Route::get('settings/user-guide/pdf', [SettingsController::class, 'userGuidePdf'])->name('settings.user-guide.pdf');
+        Route::get('settings/technical-docs/pdf', [SettingsController::class, 'technicalDocsPdf'])->name('settings.technical-docs.pdf');
     });
 });

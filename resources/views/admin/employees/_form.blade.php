@@ -33,7 +33,7 @@
 
     <div>
         <x-input-label for="pin" :value="isset($employee) ? 'Reset PIN (leave blank to keep current)' : 'PIN'" />
-        <x-text-input id="pin" name="pin" type="text" inputmode="numeric" class="mt-1 block w-full" {{ isset($employee) ? '' : 'required' }} />
+        <x-text-input id="pin" name="pin" type="text" inputmode="numeric" class="mt-1 block w-full" autocomplete="off" :required="! isset($employee)" />
         <x-input-error :messages="$errors->get('pin')" class="mt-2" />
     </div>
 

@@ -80,7 +80,7 @@ class UserController extends Controller
         return $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'.($ignoreUserId ? ",{$ignoreUserId}" : '')],
-            'password' => [$passwordRequired ? 'required' : 'nullable', 'string', 'min:8'],
+            'password' => [$passwordRequired ? 'required' : 'nullable', 'string', 'min:8', 'confirmed'],
             'role' => ['required', 'in:admin,manager'],
             'location_id' => ['required_if:role,manager', 'nullable', 'exists:locations,id'],
         ]);

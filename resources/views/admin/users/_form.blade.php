@@ -15,20 +15,26 @@
 
     <div>
         <x-input-label for="password" :value="isset($user) ? 'Reset password (leave blank to keep current)' : 'Password'" />
-        <x-text-input id="password" name="password" type="password" class="mt-1 block w-full" {{ isset($user) ? '' : 'required' }} />
+        <x-text-input id="password" name="password" type="password" class="mt-1 block w-full" autocomplete="new-password" :required="! isset($user)" />
         <x-input-error :messages="$errors->get('password')" class="mt-2" />
     </div>
 
     <div>
+        <x-input-label for="password_confirmation" :value="isset($user) ? 'Confirm new password' : 'Confirm password'" />
+        <x-text-input id="password_confirmation" name="password_confirmation" type="password" class="mt-1 block w-full" autocomplete="new-password" :required="! isset($user)" />
+        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+    </div>
+
+    <div>
         <x-input-label for="role" value="Role" />
-        <select id="role" name="role" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" onchange="document.getElementById('location-field').classList.toggle('hidden', this.value !== 'manager')">
-            <option value="admin" @selected(old('role', $user->role ?? '') === 'admin')>Admin (all locations)</option>
-            <option value="manager" @selected(old('role', $user->role ?? '') === 'manager')>Manager (single location)</option>
+        <select id="role" name="role" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required onchange="document.getElementById('location-field').classList.toggle('hidden', this.value !== 'manager')">
+            <option value="manager" @selected(old('role', $user->role ?? 'manager') === 'manager')>Manager (single location)</option>
+            <option value="admin" @selected(old('role', $user->role ?? 'manager') === 'admin')>Admin (all locations)</option>
         </select>
         <x-input-error :messages="$errors->get('role')" class="mt-2" />
     </div>
 
-    <div id="location-field" class="{{ old('role', $user->role ?? '') === 'manager' ? '' : 'hidden' }}">
+    <div id="location-field" class="{{ old('role', $user->role ?? 'manager') === 'manager' ? '' : 'hidden' }}">
         <x-input-label for="location_id" value="Location" />
         <select id="location_id" name="location_id" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
             @foreach ($locations as $location)
