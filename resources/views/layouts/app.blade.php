@@ -9,7 +9,7 @@
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -23,14 +23,14 @@
             })();
         </script>
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gradient-to-b from-blue-50 via-navy-50 to-white dark:from-navy-950 dark:via-navy-900 dark:to-navy-950">
+    <body class="font-sans antialiased" x-data>
+        <div class="min-h-screen bg-neutral-50 dark:bg-neutral-950">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
             @isset($header)
-                <header class="bg-gradient-to-r from-navy-900 via-navy-800 to-blue-900 shadow-lg shadow-navy-950/20">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <header class="border-b border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900">
+                    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
                 </header>

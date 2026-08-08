@@ -1,15 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-white leading-tight">Attendance</h2>
+        <h2 class="text-xl font-semibold leading-tight text-neutral-900 dark:text-white">Attendance</h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-4">
-            <form method="GET" class="bg-white shadow-sm sm:rounded-lg p-4 flex flex-wrap gap-4 items-end">
+    <div class="py-10">
+        <div class="mx-auto max-w-7xl space-y-6 px-4 sm:px-6 lg:px-8">
+            <form method="GET" class="card flex flex-wrap items-end gap-4 p-4 sm:p-5">
                 @if (Auth::user()->isAdmin())
-                    <div>
+                    <div class="w-full sm:w-auto">
                         <x-input-label for="location_id" value="Location" />
-                        <select id="location_id" name="location_id" class="mt-1 border-gray-300 rounded-md shadow-sm text-sm">
+                        <select id="location_id" name="location_id" class="input mt-1.5 !w-full sm:!w-auto">
                             <option value="">All locations</option>
                             @foreach ($locations as $location)
                                 <option value="{{ $location->id }}" @selected(request('location_id') == $location->id)>{{ $location->name }}</option>
@@ -18,49 +18,57 @@
                     </div>
                 @endif
 
-                <div>
+                <div class="w-full sm:w-auto">
                     <x-input-label for="from" value="From" />
-                    <input type="date" id="from" name="from" value="{{ request('from') }}" class="mt-1 border-gray-300 rounded-md shadow-sm text-sm">
+                    <input type="date" id="from" name="from" value="{{ request('from') }}" class="input mt-1.5 !w-full sm:!w-auto">
                 </div>
 
-                <div>
+                <div class="w-full sm:w-auto">
                     <x-input-label for="to" value="To" />
-                    <input type="date" id="to" name="to" value="{{ request('to') }}" class="mt-1 border-gray-300 rounded-md shadow-sm text-sm">
+                    <input type="date" id="to" name="to" value="{{ request('to') }}" class="input mt-1.5 !w-full sm:!w-auto">
                 </div>
 
-                <x-primary-button>Filter</x-primary-button>
-                <a href="{{ route('admin.attendance.export', request()->query()) }}" class="text-sm bg-gray-100 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-200">Export CSV</a>
+                <x-primary-button class="w-full sm:w-auto">
+                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" /></svg>
+                    Filter
+                </x-primary-button>
+                <a href="{{ route('admin.attendance.export', request()->query()) }}" class="btn-secondary w-full sm:w-auto">Export CSV</a>
             </form>
 
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <table class="w-full text-left text-sm">
-                    <thead class="bg-gray-50 text-gray-500 uppercase text-xs">
-                        <tr>
-                            <th class="px-6 py-3">Employee</th>
-                            <th class="px-6 py-3">Location</th>
-                            <th class="px-6 py-3">Type</th>
-                            <th class="px-6 py-3">When</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-100">
-                        @forelse ($logs as $log)
+            <div class="card">
+                <div class="overflow-x-auto">
+                    <table class="table">
+                        <thead class="table-head">
                             <tr>
-                                <td class="px-6 py-3">{{ $log->employee->name }} ({{ $log->employee->employee_code }})</td>
-                                <td class="px-6 py-3 text-gray-500">{{ $log->location->name }}</td>
-                                <td class="px-6 py-3">
-                                    @if ($log->type === 'time_in')
-                                        <span class="text-green-700">Time in</span>
-                                    @else
-                                        <span class="text-red-700">Time out</span>
-                                    @endif
-                                </td>
-                                <td class="px-6 py-3 text-gray-500">{{ $log->scanned_at->format('M j, Y g:i A') }}</td>
+                                <th>Employee</th>
+                                <th>Location</th>
+                                <th>Type</th>
+                                <th>When</th>
                             </tr>
-                        @empty
-                            <tr><td class="px-6 py-6 text-gray-500" colspan="4">No attendance records for this filter.</td></tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody class="table-body">
+                            @forelse ($logs as $log)
+                                <tr>
+                                    <td>
+                                        <span class="font-medium text-neutral-900 dark:text-white">{{ $log->employee->name }}</span>
+                                        <span class="text-neutral-400 dark:text-neutral-500">({{ $log->employee->employee_code }})</span>
+                                    </td>
+                                    <td class="text-neutral-500 dark:text-neutral-400">{{ $log->location->name }}</td>
+                                    <td>
+                                        @if ($log->type === 'time_in')
+                                            <span class="badge badge-success">Time in</span>
+                                        @else
+                                            <span class="badge badge-danger">Time out</span>
+                                        @endif
+                                    </td>
+                                    <td class="text-neutral-500 dark:text-neutral-400">{{ $log->scanned_at->format('M j, Y g:i A') }}</td>
+                                </tr>
+                            @empty
+                                <tr class="table-empty"><td colspan="4">No attendance records for this filter.</td></tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div>{{ $logs->links() }}</div>

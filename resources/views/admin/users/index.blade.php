@@ -1,52 +1,61 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-white leading-tight">Users</h2>
-            <a href="{{ route('admin.users.create') }}" class="text-sm bg-gradient-to-r from-blue-600 to-indigo-700 text-white px-4 py-2 rounded-md hover:from-blue-500 hover:to-indigo-600">New user</a>
+        <div class="flex flex-wrap items-center justify-between gap-4">
+            <h2 class="text-xl font-semibold leading-tight text-neutral-900 dark:text-white">Users</h2>
+            <a href="{{ route('admin.users.create') }}" class="btn-primary">
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
+                New user
+            </a>
         </div>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                @if (session('success'))
-                    <div class="p-4 text-sm text-green-700 bg-green-50 border-b border-green-200">{{ session('success') }}</div>
-                @endif
+    <div class="py-10">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            @if (session('success'))
+                <div class="alert alert-success mb-4">{{ session('success') }}</div>
+            @endif
 
-                <table class="w-full text-left text-sm">
-                    <thead class="bg-gray-50 text-gray-500 uppercase text-xs">
-                        <tr>
-                            <th class="px-6 py-3">Name</th>
-                            <th class="px-6 py-3">Email</th>
-                            <th class="px-6 py-3">Role</th>
-                            <th class="px-6 py-3">Location</th>
-                            <th class="px-6 py-3"></th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-100">
-                        @forelse ($users as $user)
+            <div class="card">
+                <div class="overflow-x-auto">
+                    <table class="table">
+                        <thead class="table-head">
                             <tr>
-                                <td class="px-6 py-3 font-medium">{{ $user->name }}</td>
-                                <td class="px-6 py-3 text-gray-500">{{ $user->email }}</td>
-                                <td class="px-6 py-3 capitalize">{{ $user->role }}</td>
-                                <td class="px-6 py-3 text-gray-500">{{ $user->location?->name ?? '—' }}</td>
-                                <td class="px-6 py-3 text-right space-x-3">
-                                    <a href="{{ route('admin.users.edit', $user) }}" class="text-navy-600 hover:text-navy-800">Edit</a>
-                                    @if ($user->id !== Auth::id())
-                                        <form method="POST" action="{{ route('admin.users.destroy', $user) }}" class="inline"
-                                            onsubmit="return confirm('Remove {{ $user->name }}?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-red-600">Delete</button>
-                                        </form>
-                                    @endif
-                                </td>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Location</th>
+                                <th class="text-right">Actions</th>
                             </tr>
-                        @empty
-                            <tr><td class="px-6 py-6 text-gray-500" colspan="5">No users yet.</td></tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody class="table-body">
+                            @forelse ($users as $user)
+                                <tr>
+                                    <td class="font-medium text-neutral-900 dark:text-white">{{ $user->name }}</td>
+                                    <td class="text-neutral-500 dark:text-neutral-400">{{ $user->email }}</td>
+                                    <td>
+                                        <span class="badge {{ $user->role === 'admin' ? 'badge-primary' : 'badge-neutral' }} capitalize">{{ $user->role }}</span>
+                                    </td>
+                                    <td class="text-neutral-500 dark:text-neutral-400">{{ $user->location?->name ?? '—' }}</td>
+                                    <td>
+                                        <div class="flex items-center justify-end gap-1">
+                                            <a href="{{ route('admin.users.edit', $user) }}" class="btn-link">Edit</a>
+                                            @if ($user->id !== Auth::id())
+                                                <form method="POST" action="{{ route('admin.users.destroy', $user) }}"
+                                                    onsubmit="return confirm('Remove {{ $user->name }}?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn-link text-danger-600 hover:bg-danger-50 dark:text-danger-400 dark:hover:bg-danger-500/10">Delete</button>
+                                                </form>
+                                            @endif
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr class="table-empty"><td colspan="5">No users yet.</td></tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div class="mt-4">{{ $users->links() }}</div>

@@ -6,22 +6,24 @@
     <title>{{ $location->name }} — Sign in</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="text-gray-900 antialiased">
-    <div class="min-h-screen flex flex-col items-center justify-center px-4 py-8 bg-gradient-to-br from-navy-950 via-navy-900 to-blue-950">
-        <div class="w-full max-w-sm bg-white rounded-2xl shadow-xl p-6">
-            <div class="flex items-center gap-2.5 mb-4">
-                <span class="flex items-center justify-center h-9 w-9 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-700 shrink-0">
+<body class="font-sans text-neutral-800 antialiased">
+    <div class="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-secondary-950 via-secondary-900 to-primary-950 px-4 py-8">
+        <div class="pointer-events-none absolute inset-0 opacity-[0.06] [background-image:radial-gradient(circle_at_15%_20%,white,transparent_38%),radial-gradient(circle_at_85%_0%,white,transparent_32%)]"></div>
+
+        <div class="relative w-full max-w-sm rounded-card bg-white p-6 shadow-lift dark:bg-neutral-900">
+            <div class="mb-4 flex items-center gap-2.5">
+                <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-primary-500 to-primary-800">
                     <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                 </span>
-                <h1 class="text-lg font-semibold text-slate-900">{{ $location->name }}</h1>
+                <h1 class="text-lg font-semibold text-neutral-900 dark:text-white">{{ $location->name }}</h1>
             </div>
-            <p class="text-sm text-slate-500 mb-6">Enter your employee code and PIN to clock in or out.</p>
+            <p class="mb-6 text-sm text-neutral-500 dark:text-neutral-400">Enter your employee code and PIN to clock in or out.</p>
 
             @if ($errors->any())
-                <div class="mb-4 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg p-3">
+                <div class="alert alert-danger mb-4">
                     {{ $errors->first() }}
                 </div>
             @endif
@@ -33,18 +35,17 @@
                     <x-input-label for="employee_code" value="Employee code" />
                     <x-text-input id="employee_code" name="employee_code" type="text"
                         inputmode="numeric" autofocus autocomplete="off"
-                        class="mt-1 block w-full text-lg" required />
+                        class="mt-1.5 block w-full text-lg" required />
                 </div>
 
                 <div>
                     <x-input-label for="pin" value="PIN" />
                     <x-text-input id="pin" name="pin" type="password"
                         inputmode="numeric" autocomplete="off"
-                        class="mt-1 block w-full text-lg" required />
+                        class="mt-1.5 block w-full text-lg" required />
                 </div>
 
-                <button type="submit"
-                    class="w-full inline-flex justify-center py-3 px-4 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-700 text-white text-lg font-medium shadow-sm hover:from-blue-500 hover:to-indigo-600 hover:shadow-md transition-all duration-200">
+                <button type="submit" class="btn-primary w-full py-3 text-lg">
                     Continue
                 </button>
             </form>

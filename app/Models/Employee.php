@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-#[Fillable(['employee_code', 'name', 'email', 'pin_hash', 'home_location_id', 'active'])]
+#[Fillable(['employee_code', 'name', 'email', 'photo', 'pin_hash', 'home_location_id', 'active'])]
 #[Hidden(['pin_hash', 'remember_token'])]
 class Employee extends Authenticatable
 {
@@ -29,6 +29,11 @@ class Employee extends Authenticatable
     public function homeLocation()
     {
         return $this->belongsTo(Location::class, 'home_location_id');
+    }
+
+    public function getPhotoUrlAttribute(): ?string
+    {
+        return $this->photo ? asset('storage/'.$this->photo) : null;
     }
 
     public function attendanceLogs()

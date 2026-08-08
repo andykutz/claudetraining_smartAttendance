@@ -3,10 +3,13 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScanController;
+use App\Models\Location;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome', [
+        'locations' => Location::query()->where('active', true)->orderBy('name')->get(),
+    ]);
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])

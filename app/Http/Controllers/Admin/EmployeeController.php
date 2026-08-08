@@ -7,6 +7,7 @@ use App\Models\Employee;
 use App\Models\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class EmployeeController extends Controller
 {
@@ -33,6 +34,7 @@ class EmployeeController extends Controller
             'employee_code' => ['required', 'string', 'max:20', 'unique:employees,employee_code'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['nullable', 'email', 'max:255'],
+            'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
             'pin' => ['required', 'string', 'min:4', 'max:8'],
             'home_location_id' => ['required', 'exists:locations,id'],
         ]);
@@ -43,6 +45,7 @@ class EmployeeController extends Controller
             'employee_code' => $data['employee_code'],
             'name' => $data['name'],
             'email' => $data['email'] ?? null,
+            'photo' => $request->hasFile('photo') ? $request->file('photo')->store('employees', 'public') : null,
             'pin_hash' => Hash::make($data['pin']),
             'home_location_id' => $data['home_location_id'],
             'active' => true,
@@ -68,12 +71,18 @@ class EmployeeController extends Controller
             'employee_code' => ['required', 'string', 'max:20', 'unique:employees,employee_code,'.$employee->id],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['nullable', 'email', 'max:255'],
+            'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
             'pin' => ['nullable', 'string', 'min:4', 'max:8'],
             'home_location_id' => ['required', 'exists:locations,id'],
             'active' => ['nullable', 'boolean'],
         ]);
 
         $this->authorizeLocation($request, (int) $data['home_location_id']);
+
+        if ($request->hasFile('photo')) {
+            $this->deletePhoto($employee);
+            $employee->photo = $request->file('photo')->store('employees', 'public');
+        }
 
         $employee->fill([
             'employee_code' => $data['employee_code'],
@@ -96,9 +105,18 @@ class EmployeeController extends Controller
     {
         $this->authorizeLocation($request, $employee->home_location_id);
 
+        $this->deletePhoto($employee);
+
         $employee->delete();
 
         return redirect()->route('admin.employees.index')->with('success', 'Employee removed.');
+    }
+
+    private function deletePhoto(Employee $employee): void
+    {
+        if ($employee->photo) {
+            Storage::disk('public')->delete($employee->photo);
+        }
     }
 
     private function scopedEmployees(Request $request)
